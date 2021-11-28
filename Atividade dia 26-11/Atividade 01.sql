@@ -1,26 +1,26 @@
 create database db_generation_game_online;
-
+drop database db_generation_game_online;
 use db_generation_game_online;
 
 -- Criação de tabelas
 create table tb_classe(
-id_classe bigint (20) auto_increment, 
-nome_classe varchar(20) not null,
-habilidade varchar (50),
-passiva varchar (20),
+	id_classe bigint (20) auto_increment, 
+	nome_classe varchar(20) not null,
+	habilidade varchar (50),
+	passiva varchar (20),
 
-primary key(id_classe)
+	primary key(id_classe)
 );
 
 create table tb_personagem(
-id_personagem bigint (20) auto_increment, 
-nome_personagem varchar (50) not null,
-poder_ataque bigint (20),
-poder_defesa bigint (20),
-fk_id_classe bigint not null, -- chave estrangeira sempre tem que ser o mesmo tipo da chave primaria
+	id_personagem bigint (20) auto_increment, 
+	nome_personagem varchar (50) not null,
+	poder_ataque bigint (20),
+	poder_defesa bigint (20),
+	fk_id_classe bigint not null, -- chave estrangeira sempre tem que ser o mesmo tipo da chave primaria
 
-primary key(id_personagem),
-foreign key(fk_id_classe) references tb_classe (id_classe)
+	primary key(id_personagem),
+	foreign key(fk_id_classe) references tb_classe (id_classe)
 );
 
 -- Populando tabela classe
@@ -70,7 +70,7 @@ select * from tb_personagem where poder_defesa > 1000 and poder_defesa < 2000;
 select * from tb_personagem where nome_personagem like "%lord%";
 
 -- Inner Join
-
+select * from tb_classe inner join tb_personagem on tb_personagem.fk_id_classe = tb_classe.id_classe;
 
 -- Select buscando personagens arqueiros (id 1)
 select * from tb_personagem where fk_id_classe = 1;

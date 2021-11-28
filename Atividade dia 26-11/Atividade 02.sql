@@ -1,23 +1,27 @@
 create database db_pizzaria_legal;
+drop database db_pizzaria_legal;
 use db_pizzaria_legal;
 
 -- Criando tabela
 create table tb_categoria(
-	id_categoria int auto_increment primary key,
+	id_categoria bigint (5) auto_increment,
     categoria varchar(10),
     tamanho varchar(10),
-    borda varchar(30)
+    borda varchar(30),
+    
+    primary key (id_categoria)
 );
     
 create table tb_pizza(
-	id_pizza int not null auto_increment primary key,
+	id_pizza bigint (5) auto_increment not null,
     sabor varchar(50),
     valor decimal (10, 2),
     vegetariana boolean,
     azeitona boolean,
-    fk_id_categoria int not null,
+    fk_id_categoria bigint not null,
     
-    foreign key (fk_id_categoria) references tb_categoria(id_pizza)
+    primary key(id_pizza),
+    foreign key (fk_id_categoria) references tb_categoria (id_categoria)
 );
     
     -- Popular a tabela categoria
@@ -53,7 +57,7 @@ create table tb_pizza(
     select * from tb_pizza where sabor like "%C%";
     
     -- Inner Join
-    
+    select * from tb_categoria inner join tb_pizza on tb_categoria.id_categoria = tb_pizza.fk_id_categoria;
     
     -- Select com produtos de uma categoria especifica
     select * from tb_pizza where fk_id_categoria >= 4 and fk_id_categoria <= 5;
